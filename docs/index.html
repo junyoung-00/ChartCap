@@ -1,10 +1,370 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>ChartCap</title>
-  </head>
-  <body>
-    <h1>ChartCap: Mitigating Hallucination of Dense Chart Captioning</h1>
-    <p>(WIP)</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>ChartCap: Mitigating Hallucination of Dense Chart Captioning</title>
+  <meta name="description" content="A large-scale dataset of 565K real-world chart images paired with type-specific, dense captions that exclude extraneous information and highlight both structural elements and key insights in detail." />
+  <meta name="keywords" content="ChartCap, Chart Captioning, Chart Understanding, Vision-Language Models" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://junyoung-00.github.io/ChartCap/" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="ChartCap" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="ChartCap: Mitigating Hallucination of Dense Chart Captioning" />
+  <meta property="og:description" content="A large-scale dataset of 565K real-world chart images paired with type-specific, dense captions that exclude extraneous information and highlight both structural elements and key insights in detail." />
+  <meta property="og:image" content="https://junyoung-00.github.io/ChartCap/static/images/teaser.jpg" />
+  <meta property="og:url" content="https://junyoung-00.github.io/ChartCap/" />
+  <meta property="og:type" content="article" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:description" content="565K real-world charts with dense, type-specific, hallucination-free captions." />
+  <meta name="twitter:image" content="https://junyoung-00.github.io/ChartCap/static/images/teaser.jpg" />
+  <meta name="twitter:title" content="ChartCap: Mitigating Hallucination of Dense Chart Captioning" />
+
+  <!-- PWA/Branding -->
+  <meta name="theme-color" content="#0B5FFF" />
+  <link rel="icon" href="./static/images/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./static/css/bulma.min.css" />
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+  <link rel="stylesheet" href="./static/css/index.css" />
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+  <script src="./static/js/fontawesome.all.min.js" defer></script>
+  <script src="./static/js/bulma-carousel.min.js" defer></script>
+  <script src="./static/js/bulma-slider.min.js" defer></script>
+  <script src="./static/js/index.js" defer></script>
+
+  <!-- Structured Data (SEO/Scholar) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "name": "ChartCap: Mitigating Hallucination of Dense Chart Captioning",
+    "headline": "ChartCap: Mitigating Hallucination of Dense Chart Captioning",
+    "author": [
+      {
+        "@type": "Person", 
+        "name": "Junyoung Lim",
+        "affiliation": {"@type": "Organization", "name": "Seoul National University"}
+      },
+      {
+        "@type": "Person", 
+        "name": "Jaewoo Ahn",
+        "affiliation": {"@type": "Organization", "name": "Seoul National University"}
+      },
+      {
+        "@type": "Person", 
+        "name": "Gunhee Kim",
+        "affiliation": {"@type": "Organization", "name": "Seoul National University"}
+      }
+    ],
+    "url": "https://junyoung-00.github.io/ChartCap/",
+    "image": "https://junyoung-00.github.io/ChartCap/static/images/teaser.jpg",
+    "description": "A large-scale dataset of 565K real-world chart images paired with type-specific, dense captions that exclude extraneous information and highlight both structural elements and key insights in detail.",
+    "keywords": ["ChartCap", "chart captioning", "chart understanding", "vision-language models"]
+  }
+  </script>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ChartCap: Mitigating Hallucination of Dense Chart Captioning</h1>
+          <div class="is-size-4 publication-authors">
+            <span class="author-block">
+              <a href="https://vision.snu.ac.kr/people/junyoung.html">Junyoung Lim</a>,</span>
+            <span class="author-block">
+              <a href="https://ahnjaewoo.github.io/">Jaewoo Ahn</a>,</span>
+            <span class="author-block">
+              <a href="https://vision.snu.ac.kr/gunhee/">Gunhee Kim</a></span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Seoul National University</span>
+          </div>
+          <div class="is-size-4 publication-authors">
+            <span class="author-block"><b>ICCV 2025 Highlight</b></span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2508.03164"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/junyoung-00/ChartCap"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/junyoung-00/ChartCap"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="./static/images/hf-logo.svg" alt="Hugging Face" style="height:1.2em; width:auto;" />
+                  </span>
+                  <span>Dataset</span>
+                  </a>
+              </span>
+              <!-- model Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/junyoung-00/Phi-3.5-vision-instruct-ChartCap"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="./static/images/hf-logo.svg" alt="Hugging Face" style="height:1.2em; width:auto;" />
+                  </span>
+                  <span>Model</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-widescreen">
+    <div class="hero-body has-text-centered">
+      
+      <!-- Teaser Image -->
+      <figure>
+        <img src="./static/images/teaser.jpg" alt="ChartCap teaser"
+             style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+        <figcaption class="is-size-6 has-text-grey">
+          Comparison of the original caption and our <b>ChartCap</b> caption.
+          <br>
+          The chart is sourced from 
+          <a href="https://arxiv.org/abs/physics/0609135" target="_blank" rel="noopener noreferrer">
+            Burghardt &amp; Hartmann (2007)
+          </a>, collected by 
+          <a href="https://arxiv.org/abs/2403.00231" target="_blank" rel="noopener noreferrer">
+            Li et al. (2024)
+          </a>, and included in <b>ChartCap</b>.
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Generating accurate, informative, and hallucination-free captions for charts remains challenging for 
+            vision language models, primarily due to the lack of large-scale, high-quality datasets of real-world charts.
+            However, existing real-world chart datasets suffer from the inclusion of extraneous information that cannot 
+            be inferred from the chart and failure to sufficiently capture structural elements and key insights. 
+          </p>
+          <p>
+            Therefore, we introduce ChartCap, a large-scale dataset of 565K real-world chart images paired with type-specific,
+            dense captions that exclude extraneous information and highlight both structural elements and key insights in detail.
+            To build ChartCap, we design a four-stage pipeline that generates captions using only the discernible data from the 
+            chart and employ a cycle consistency-based human verification, which accelerates quality control without sacrificing accuracy.
+          </p>
+          <p>
+            Additionally, we propose a novel metric, the Visual Consistency Score, which evaluates caption quality by measuring the
+            similarity between the chart regenerated from a caption and the original chart, independent of reference captions.
+          </p>
+          <p>
+            Extensive experiments confirm that models fine-tuned on ChartCap consistently generate more accurate and informative captions
+            with reduced hallucinations, surpassing both open-source and proprietary models and even human-annotated captions.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">The ChartCap Dataset</h2>
+
+        <!-- Pipeline Figure -->
+        <figure>
+          <img src="./static/images/pipeline.jpg" alt="ChartCap pipeline"
+               style="max-width: 100%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+          <figcaption class="is-size-6 has-text-grey" style="margin-top: 0.5rem;">
+            Four-stage pipeline of <b>ChartCap</b>.
+          </figcaption>
+        </figure>
+
+        <div class="content has-text-justified" style="margin-top: 1.5rem;">
+          <p>
+            Building a large-scale chart dataset with high-quality captions requires both a
+            clear schema and an automated yet reliable pipeline. <b>ChartCap</b> introduces
+            a type-specific caption schema across nine chart types, defining structural
+            descriptions and key insights guided by prior work in data visualization and
+            visualization literacy. Our four-stage pipeline filters non-charts, classifies
+            chart type and title, extracts structural and semantic information, and finally
+            generates sentence-level captions. To guarantee quality, we employ a
+            cycle-consistency-based human verification process, reconstructing charts from
+            captions to efficiently validate correctness and informativeness.
+          </p>
+        </div>
+
+        <figure>
+          <img src="./static/images/cc.jpg" alt="Cycle-consistency human verification"
+               style="max-width: 50%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+          <figcaption class="is-size-6 has-text-grey" style="margin-top: 0.5rem;">
+            Original chart (left) compared with a reconstructed chart (right) from caption-generated code.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">The Visual Consistency Score</h2>
+        <div class="content has-text-justified" style="margin-top: 1.5rem;">
+          <p>
+            To evaluate caption quality automatically, we introduce the
+            <b>Visual Consistency Score</b>. Each caption is translated into
+            Matplotlib code to regenerate a chart, which is then compared with the
+            original using a vision encoder. In parallel, <b>OCRScore</b> measures how
+            faithfully textual elements are preserved via OCR-based precision and recall.
+            Together, VCS and OCRScore achieve the highest agreement with human judgment,
+            offering scalable and reliable metrics for chart caption evaluation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <!-- Section Title -->
+    <h2 class="title is-3 has-text-centered">Experiments</h2>
+
+    <!-- ChartCap Result -->
+    <figure class="has-text-centered">
+      <img src="./static/images/chartcap_result.jpg" 
+          alt="Results on ChartCap" 
+          style="max-width: 80%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+      <figcaption class="is-size-6 has-text-grey" style="margin-top: 0.5rem;">
+        Results on <b>ChartCap</b> test set.
+      </figcaption>
+    </figure>
+
+    <!-- VisText & Chart-to-Text -->
+    <div class="columns is-centered" style="margin-top: 1.5rem;">
+      <div class="column">
+        <figure class="has-text-centered">
+          <img src="./static/images/vistext_result.jpg" 
+              alt="Results on VisText" 
+              style="max-width: 80%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+          <figcaption class="is-size-6 has-text-grey" style="margin-top: 0.5rem;">
+            Zero-shot evaluation on 
+            <a href="https://arxiv.org/abs/2307.05356" target="_blank" rel="noopener noreferrer"><b>VisText</b></a>.
+          </figcaption>
+        </figure>
+      </div>
+      <div class="column">
+        <figure class="has-text-centered">
+          <img src="./static/images/c2t_result.jpg" 
+              alt="Results on Chart-to-Text" 
+              style="max-width: 80%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+          <figcaption class="is-size-6 has-text-grey" style="margin-top: 0.5rem;">
+            Zero-shot evaluation on 
+            <a href="https://arxiv.org/abs/2203.06486" target="_blank" rel="noopener noreferrer"><b>Chart-to-Text</b></a>.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+
+    <div class="content has-text-centered" style="margin-top: 2rem;">
+      <p>
+        Models fine-tuned on <b>ChartCap</b> achieve state-of-the-art performance on
+        <b>ChartCap</b> test set, <a href="https://arxiv.org/abs/2307.05356"><b>VisText</b></a>, and <a href="https://arxiv.org/abs/2203.06486"><b>Chart-to-Text</b></a> benchmarks.
+      </p>
+    </div>
+
+    <!-- Qualitative Examples -->
+    <div class="content" style="margin-top: 3rem;">
+      <h3 class="title is-4 has-text-centered">Qualitative Examples</h3>
+      <figure class="has-text-centered">
+        <img src="./static/images/qual_result.jpg" 
+             alt="Qualitative results from VisText" 
+             style="max-width: 60%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+        <figcaption class="is-size-6 has-text-grey" style="margin-top: 0.5rem; font-style: normal;">
+          Qualitative examples comparing (a) the ground-truth chart image from 
+          <a href="https://arxiv.org/abs/2307.05356" target="_blank" rel="noopener noreferrer"><b>VisText</b></a> 
+          and their reconstructed charts from the captions of 
+          (b) human-authored ground-truth, (c) Phi3.5-Vision-4B<sub>ChartCap</sub>, and (d) Claude 3.5 Sonnet.
+        </figcaption>
+
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-widescreen content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{lim2025chartcap,
+  title     = {ChartCap: Mitigating Hallucination of Dense Chart Captioning},
+  author    = {Junyoung Lim and Jaewoo Ahn and Gunhee Kim},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year      = {2025},
+}</code></pre>
+</div>
+</section>
+
+
+<footer class="footer" style="padding-bottom: 1.5em; padding-top: 1.5em;">
+  <div class="container">
+    <div class="content has-text-centered">
+      <span>Website based on <a href="https://nerfies.github.io">Nerfies</a>.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
 </html>
