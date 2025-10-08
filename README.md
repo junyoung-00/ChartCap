@@ -26,11 +26,11 @@ Generating accurate, informative, and hallucination-free captions for charts rem
 ```bash
 conda create -n phi python=3.10 -y
 conda activate phi
-pip install -r Phi3.5-vision-instruct-ChartCap/requirements.txt
+pip install -r Phi-3.5-vision-instruct-ChartCap/requirements.txt
 pip install flash-attn==2.5.8 --no-cache-dir --no-build-isolation
 
 # captions example.png with base and fine-tuned checkpoints
-python -m Phi3.5-vision-instruct-ChartCap
+python Phi-3.5-vision-instruct-ChartCap/Phi.py
 ````
 
 | Checkpoint ID                                  | Console alias                  |
